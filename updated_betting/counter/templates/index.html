@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arbitrage Betting Options</title>
+</head>
+<body>
+    <h1>Arbitrage Betting Options</h1>
+    <h3><a href = 'https://the-odds-api.com/#get-access'>get a free api key from here to use the site</a></h3>
+    <p>couple keys anyone can play with (probably already used up tho):</p>
+    <p>04c597bac5375d93135a36cdf66c9e4e  -  a00d8a728f54650ef7793a6f5974ed0c  -  8ed6d5217b0e9d7f46b9c22e456e3966  -  3c71816014ad3e323eca95b3fe2e1263  -  8d725450b28fb2467bdb7fafa3b0a4fe</p>
+    <b>Type in a API key to show current betting options</b>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="key" value="">
+        <button type="submit">Click me!</button>
+    </form>
+    {% for line in count %}
+    {% for l in line %}
+    <p>{{ l }}</p>
+    {% endfor %}
+    <p>.</p>
+    {% endfor %}
+</body>
+</html>
