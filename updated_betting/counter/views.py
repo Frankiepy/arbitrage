@@ -155,54 +155,53 @@ def get_info(key):
         print('Number of events:', len(odds_json))
         print(odds_json)
         superbook = odds_json
-        with open("/Users/frankie/Downloads/FeedSDK-Python-master/betting_automation/collect_info.txt", "w") as o:
-            for game in superbook:
-                for site1 in game['bookmakers']:
-                    s1 = []
-                    for p1 in site1['markets'][0]['outcomes']:
-                        print(p1)
-                        s1.append(p1['price'])
+        for game in superbook:
+            for site1 in game['bookmakers']:
+                s1 = []
+                for p1 in site1['markets'][0]['outcomes']:
+                    print(p1)
+                    s1.append(p1['price'])
 
-                    temp_list = game['bookmakers']
-                    temp_list.remove(site1)
-                    for site2 in game['bookmakers']:
+                temp_list = game['bookmakers']
+                temp_list.remove(site1)
+                for site2 in game['bookmakers']:
             
-                        s2 = []
-                        for p2 in site2['markets'][0]['outcomes']:
-                            s2.append(p2['price'])
-                        #print(s1,s2)
-                        outcome, instructions = 2, ''
-                        try:
-                            outcome ,instructions = two_sites_basic(s1, s2)
-                        except Exception:
-                            pass
-                        if outcome < .99:
-                            temp = []
-                            temp.append('\n')
-                            temp.append(f"League: {game['sport_title']}")
-                            temp.append(f"Game: {game['home_team']} vs {game['away_team']}")
-                            number = 100-(float(outcome)*100)
-                            temp.append(f'return percentage: {number/100}% (>0.1 is pretty good)')
+                    s2 = []
+                    for p2 in site2['markets'][0]['outcomes']:
+                        s2.append(p2['price'])
+                    #print(s1,s2)
+                    outcome, instructions = 2, ''
+                    try:
+                        outcome ,instructions = two_sites_basic(s1, s2)
+                    except Exception:
+                        pass
+                    if outcome < .99:
+                        temp = []
+                        temp.append('\n')
+                        temp.append(f"League: {game['sport_title']}")
+                        temp.append(f"Game: {game['home_team']} vs {game['away_team']}")
+                        number = 100-(float(outcome)*100)
+                        temp.append(f'return percentage: {number/100}% (>0.1 is pretty good)')
 
-                            team1 = site1['title']
-                            tie = site1['title']
-                            team2 = site1['title']
+                        team1 = site1['title']
+                        tie = site1['title']
+                        team2 = site1['title']
 
-                            if s1[0] < s2[0]:
-                                team1 = site2['title']
-                            if s1[1] < s2[1]:
-                                tie = site2['title']
-                            if s1[2] < s2[2]:
-                                team2 = site2['title']
-                            print(s1[0])
+                        if s1[0] < s2[0]:
+                            team1 = site2['title']
+                        if s1[1] < s2[1]:
+                            tie = site2['title']
+                        if s1[2] < s2[2]:
+                            team2 = site2['title']
+                        print(s1[0])
 
-                            temp.append(f'{s1} {s2}')
-                            temp.append(f"{site1['title']}")
-                            temp.append(f"{site2['title']}")
-                            temp.append(f'{team1}: {instructions[0]}')
-                            temp.append(f'{tie}: {instructions[1]}')
-                            temp.append(f'{team2}: {instructions[2]}')
-                            info.append(temp)
+                        temp.append(f'{s1} {s2}')
+                        temp.append(f"{site1['title']}")
+                        temp.append(f"{site2['title']}")
+                        temp.append(f'{team1}: {instructions[0]}')
+                        temp.append(f'{tie}: {instructions[1]}')
+                        temp.append(f'{team2}: {instructions[2]}')
+                        info.append(temp)
 
         # Check the usage quota
         start = []
@@ -230,4 +229,4 @@ def index(request):
             #count = sorted(count)# fix the sorting shitttttttttttt
             #info = get_info()
             #print(info)
-    return render(request, '/Users/frankie/opt/anaconda3/envs/myenv/updated_betting/counter/templates/index.html', {'count': count})#, {'testing' : testing})
+    return render(request, 'index.html', {'count': count})#, {'testing' : testing})
